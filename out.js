@@ -47,7 +47,7 @@ process.stdin.on("data", (chunk) => {
     else if(params.upgrade == "confirm")
       cmdLine += "--confirm-upgrade "
     else if(params.upgrade != true) {
-      console.error("`upgrade` param must be `true`, `force`, `rollback` or confirm.")
+      console.error("`upgrade` param ("+params.upgrade+") must be `true`, `force`, `rollback` or confirm.")
       process.exit(1)
     }
   }
