@@ -42,15 +42,15 @@ process.stdin.on("data", (chunk) => {
     cmdLine += "--upgrade "
     if(params.upgrade == "force")
       cmdLine += "--force-upgrade "
+    else if(params.upgrade == "rollback")
+      cmdLine += "--rollback "
     else if(params.upgrade == "confirm")
       cmdLine += "--confirm-upgrade "
     else if(params.upgrade != true) {
-      console.error("`upgrade` param must be true, force or confirm.")
+      console.error("`upgrade` param must be `true`, `force`, `rollback` or confirm.")
       process.exit(1)
     }
   }
-  if(params.rollback)
-    cmdLine += "--rollback "
   const path = params.path
   if(!path) {
     console.error("Please specify a path parameter.")
