@@ -57,12 +57,9 @@ process.stdin.on("data", (chunk) => {
     process.exit(1)
   }
   exec(cmdLine, {cwd: `${process.argv[2]}/${path}`}, (err, stdout, stderr) => {
-    stderr.pipe(process.stdout)
-    var errored = false
-    stderr.on("data", () => errored = true)
-    if(err)
-      errored = true
-    if(errored)
+    console.error(stdout.toString())
+    console.error(stderr.toString())
+    if(err || stderr.toString() != "")
       process.exit(1)
     else {
       console.log(JSON.stringify({version: new Date().getTime()}))
