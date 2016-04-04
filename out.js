@@ -56,7 +56,15 @@ process.stdin.on("data", (chunk) => {
     console.error("Please specify a path parameter.")
     process.exit(1)
   }
-  exec(cmdLine, {cwd: `${process.argv[2]}/${path}`}, (err, stdout, stderr) => {
+  const cwd = `${process.argv[2]}/${path}`
+  const env = params.env
+  if(env) {
+    var envFile = fs.createWriteStream("/tmp/env")
+    envFile.write(env)
+    envFile.close()
+    cmdLine += `-env-file ${envFile.path} `
+  }
+  exec(cmdLine, {cwd: cwd}, (err, stdout, stderr) => {
     console.error(stdout.toString())
     console.error(stderr.toString())
     if(err || stderr.toString() != "")

@@ -60,6 +60,8 @@ Deploys a specified Rancher project, optionally pulling new containers, as well 
 
 * `upgrade`: *Optional.* One of `true`, `force`, `confirm` or `rollback`. Starts, forces, confirms or rolls back an upgrade.
 
+* `env`: *Optional.* A set of `<key>=<value>` environment variable pairs that will be passed into the deployed Docker containers.
+
 #### Examples
 
 Deploys upgrades to the `blog` service. In this instance, upgrades are automatically forced and confirmed, though it would be simple to break upgrade confirmation out into a separate job, add a rollback job and manually trigger each when the upgrade has been independently verified.
