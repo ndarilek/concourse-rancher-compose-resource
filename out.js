@@ -1,0 +1,72 @@
+#!/usr/bin/env node
+
+var exec = require("child_process").exec
+
+process.stdin.on("data", (chunk) => {
+  const data = JSON.parse(chunk)
+  const source = data.source
+  if(!source) {
+    console.error("Please configure the resource source.")
+    process.exit(1)
+  }
+  const project = source.project
+  if(!project) {
+    console.error("Please specify a project.")
+    process.exit(1)
+  }
+  const url = source.url
+  if(!url) {
+    console.error("Please specify a URL.")
+    process.exit(1)
+  }
+  const access_key = source.access_key
+  if(!access_key) {
+    console.error("Please specify an access_key.")
+    process.exit(1)
+  }
+  const secret_key = source.secret_key
+  if(!secret_key) {
+    console.error("Please specify a secret_key.")
+    process.exit(1)
+  }
+  const params = data.params
+  if(!params) {
+    console.error("Please specify resource parameters.")
+    process.exit(1)
+  }
+  const service = params.service
+  var cmdLine = `rancher-compose --project-name ${project} --url ${url} --access-key ${access_key} --secret-key ${secret_key} up -d ${service}`
+  if(params.pull)
+    cmdLine += "--pull "
+  if(params.upgrade) {
+    cmdLine += "--upgrade "
+    if(params.upgrade == "force")
+      cmdLine += "--force-upgrade "
+    else if(params.upgrade == "confirm")
+      cmdLine += "--confirm-upgrade "
+    else if(params.upgrade != true) {
+      console.error("`upgrade` param must be true, force or confirm.")
+      process.exit(1)
+    }
+  }
+  if(params.rollback)
+    cmdLine += "--rollback "
+  const path = params.path
+  if(!path) {
+    console.error("Please specify a path parameter.")
+    process.exit(1)
+  }
+  exec(cmdLine, {cwd: `${process.argv[1]}/${path}`}, (err, stdout, stderr) => {
+    stderr.pipe(process.stdout)
+    var errored = false
+    stderr.on("data", () => errored = true)
+    if(err)
+      errored = true
+    if(errored)
+      process.exit(1)
+    else {
+      console.log(JSON.stringify({version: new Date().getTime()}))
+      process.exit(0)
+    }
+  })
+})
