@@ -1,6 +1,7 @@
 #!/usr/bin/env node
 
-var exec = require("child_process").exec
+var exec = require("child_process").exec,
+  fs = require("fs")
 
 process.stdin.on("data", (chunk) => {
   const data = JSON.parse(chunk)
