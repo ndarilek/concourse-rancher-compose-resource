@@ -81,7 +81,7 @@ jobs:
       upgrade: fource
   - put: compose
     params:
-      path: webRepo
+      path: blogRepo
       service: blog
       upgrade: confirm```
 ```
