@@ -56,8 +56,7 @@ process.stdin.on("data", (chunk) => {
     console.error("Please specify a path parameter.")
     process.exit(1)
   }
-  console.error(`argv: ${process.argv}, argv[1]: ${process.argv[1]}, path: ${path}`)
-  exec(cmdLine, {cwd: `${process.argv[1]}/${path}`}, (err, stdout, stderr) => {
+  exec(cmdLine, {cwd: `${process.argv[2]}/${path}`}, (err, stdout, stderr) => {
     stderr.pipe(process.stdout)
     var errored = false
     stderr.on("data", () => errored = true)
