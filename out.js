@@ -71,7 +71,7 @@ process.stdin.on("data", (chunk) => {
     if(err || stderr.toString() != "")
       process.exit(1)
     else {
-      console.log(JSON.stringify({version: new Date().getTime()}))
+      console.log(JSON.stringify({version: {timestamp: new Date().getTime()}}))
       process.exit(0)
     }
   })
