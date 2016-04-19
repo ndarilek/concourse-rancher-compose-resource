@@ -40,14 +40,15 @@ process.stdin.on("data", (chunk) => {
   if(params.pull)
     cmdLine += "--pull "
   if(params.upgrade) {
-    cmdLine += "--upgrade "
     if(params.upgrade == "force")
       cmdLine += "--force-upgrade "
     else if(params.upgrade == "rollback")
       cmdLine += "--rollback "
     else if(params.upgrade == "confirm")
       cmdLine += "--confirm-upgrade "
-    else if(params.upgrade != true) {
+    else if(params.upgrade == true)
+      cmdLine += "--upgrade "
+    else {
       console.error("`upgrade` param ("+params.upgrade+") must be `true`, `force`, `rollback` or confirm.")
       process.exit(1)
     }
