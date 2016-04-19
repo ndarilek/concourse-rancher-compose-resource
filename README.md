@@ -17,8 +17,6 @@ resource_types:
 
 * `url`: *Required.* The URL of the Rancher endpoint.
 
-* `project`: *Required.* The name of the rancher-compose project.
-
 * `access_key`: *Required.* A Rancher access key for the project's environment.
 
 * `secret_key`: *Required.* A Rancher secret key for the project's environment.
@@ -30,7 +28,6 @@ resources:
 - name: compose
   type: rancher-compose
   source:
-    project: my_rancher_project
     url: {{rancher_url}}
     access_key: {{rancher_access_key}}
     secret_key: {{rancher_secret_key}}
@@ -53,6 +50,8 @@ Deploys a specified Rancher project, optionally pulling new containers, as well 
 #### Parameters
 
 * `path`: *Required.* Path to `docker-compose.yml`/`rancher-compose.yml` files.
+
+* `project`: *Required.* The name of the rancher-compose project.
 
 * `service`: *Optional.* Name of service to affect. If not specified, all services are affected.
 
@@ -78,6 +77,7 @@ jobs:
   - put: compose
     params:
       path: blogRepo
+      project: app
       service: blog
       pull: true
       upgrade: fource

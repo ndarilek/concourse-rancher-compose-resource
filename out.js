@@ -10,11 +10,6 @@ process.stdin.on("data", (chunk) => {
     console.error("Please configure the resource source.")
     process.exit(1)
   }
-  const project = source.project
-  if(!project) {
-    console.error("Please specify a project.")
-    process.exit(1)
-  }
   const url = source.url
   if(!url) {
     console.error("Please specify a URL.")
@@ -33,6 +28,11 @@ process.stdin.on("data", (chunk) => {
   const params = data.params
   if(!params) {
     console.error("Please specify resource parameters.")
+    process.exit(1)
+  }
+  const project = params.project
+  if(!project) {
+    console.error("Please specify a project.")
     process.exit(1)
   }
   const service = params.service
