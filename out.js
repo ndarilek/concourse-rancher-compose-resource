@@ -1,7 +1,8 @@
 #!/usr/bin/env node
 
 var exec = require("child_process").exec,
-  fs = require("fs")
+  fs = require("fs"),
+  yaml = require("js-yaml")
 
 process.stdin.on("data", (chunk) => {
   const data = JSON.parse(chunk)
@@ -59,14 +60,11 @@ process.stdin.on("data", (chunk) => {
     process.exit(1)
   }
   const cwd = `${process.argv[2]}/${path}`
-  const env = params.env
-  if(env) {
-    var envFile = fs.createWriteStream("/tmp/env")
-    envFile.write(env)
-    envFile.close()
-    cmdLine += `-env-file ${envFile.path} `
-  }
-  exec(cmdLine, {cwd: cwd}, (err, stdout, stderr) => {
+  const environment = params.environment
+  let env = {}
+  if(environment)
+    env = yaml.safeLoadString(environment)
+  exec(cmdLine, {cwd: cwd, env: env}, (err, stdout, stderr) => {
     console.error(stdout.toString())
     console.error(stderr.toString())
     if(err || stderr.toString() != "")

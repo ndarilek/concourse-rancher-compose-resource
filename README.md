@@ -59,7 +59,7 @@ Deploys a specified Rancher project, optionally pulling new containers, as well 
 
 * `upgrade`: *Optional.* One of `true`, `force`, `confirm` or `rollback`. Starts, forces, confirms or rolls back an upgrade.
 
-* `env`: *Optional.* A set of `<key>=<value>` environment variable pairs that will be passed into the deployed Docker containers.
+* `environment`: *Optional.* A set of `<key>: <value>` YAML-formatted environment variable pairs that will be set in the rancher-compose shell. See [this documentation](http://docs.rancher.com/rancher/rancher-compose/environment-interpolation/) for information on using these environment variables in your docker-compose/rancher-compose.yml files.
 
 #### Examples
 
