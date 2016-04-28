@@ -63,7 +63,7 @@ process.stdin.on("data", (chunk) => {
   const environment = params.environment
   let env = {}
   if(environment)
-    env = yaml.safeLoadString(environment)
+    env = yaml.safeLoad(environment)
   exec(cmdLine, {cwd: cwd, env: env}, (err, stdout, stderr) => {
     console.error(stdout.toString())
     console.error(stderr.toString())
