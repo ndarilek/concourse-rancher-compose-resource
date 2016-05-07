@@ -80,7 +80,7 @@ jobs:
       project: app
       service: blog
       pull: true
-      upgrade: fource
+      upgrade: force
   - put: compose
     params:
       path: blogRepo
