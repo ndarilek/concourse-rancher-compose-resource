@@ -1,5 +1,7 @@
 # Concourse Rancher-compose Resource
 
+*NOTE*: It's probably not best to use this in production right now. It occasionally does stupid things like output command lines containing credentials to logs, because spitting out such data in private builds on real hobby projects is the best way for me to debug. I'll remove this blurb when this is no longer an issue, hopefully soon.
+
 Performs [Rancher](https://rancher.com) deployments using [Rancher-compose](https://github.com/rancher/rancher-compose).
 
 ## Resource Configuration
