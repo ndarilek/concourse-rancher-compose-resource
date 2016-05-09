@@ -37,7 +37,7 @@ process.stdin.on("data", (chunk) => {
     process.exit(1)
   }
   const service = params.service
-  var cmdLine = `rancher-compose --project-name ${project} --url ${url} --access-key ${access_key} --secret-key ${secret_key} up -d ${service} `
+  var cmdLine = `rancher-compose --project-name ${project} --url ${url} --access-key ${access_key} --secret-key ${secret_key} up -d `
   if(params.pull)
     cmdLine += "--pull "
   if(params.upgrade) {
@@ -64,7 +64,7 @@ process.stdin.on("data", (chunk) => {
   let env = {}
   if(environment)
     env = yaml.safeLoad(environment)
-  console.error(cmdLine)
+  cmdLine += service
   exec(cmdLine, {cwd: cwd, env: env}, (err, stdout, stderr) => {
     console.error(stdout.toString())
     console.error(stderr.toString())
