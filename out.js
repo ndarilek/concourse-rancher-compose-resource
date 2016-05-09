@@ -60,18 +60,19 @@ process.stdin.on("data", (chunk) => {
     process.exit(1)
   }
   const cwd = `${process.argv[2]}/${path}`
+  if(!fs.existsSync(cwd)) {
+    console.error(`Input referenced in ${path} does not exist. Is there a missing "get" step or "input" configuration for this job?`)
+    process.exit(1)
+  }
   const environment = params.environment
   let env = {}
   if(environment)
     env = yaml.safeLoad(environment)
   cmdLine += service
-  console.error(cmdLine)
   exec(cmdLine, {cwd: cwd, env: env}, (err, stdout, stderr) => {
     console.error(stdout.toString())
     console.error(stderr.toString())
     if(err || stderr.toString() != "") {
-      if(err)
-        console.error(err)
       process.exit(1)
     }
     else {
