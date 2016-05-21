@@ -37,7 +37,10 @@ process.stdin.on("data", (chunk) => {
     process.exit(1)
   }
   const service = params.service
-  var cmdLine = `rancher-compose --project-name ${project} --url ${url} --access-key ${access_key} --secret-key ${secret_key} up -d `
+  var cmdLine = `rancher-compose --project-name ${project} --url ${url} --access-key ${access_key} --secret-key ${secret_key} `
+  if(params.file)
+    cmdLine += `--file ${params.file} `
+  cmdLine += "up -d "
   if(params.pull)
     cmdLine += "--pull "
   if(params.upgrade) {
