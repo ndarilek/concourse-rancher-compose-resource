@@ -63,7 +63,9 @@ Deploys a specified Rancher project, optionally pulling new containers, as well 
 
 * `environment`: *Optional.* A set of `<key>: <value>` YAML-formatted environment variable pairs that will be set in the rancher-compose shell. See [this documentation](http://docs.rancher.com/rancher/rancher-compose/environment-interpolation/) for information on using these environment variables in your docker-compose/rancher-compose.yml files.
 
-* `file`: *Optional.* Specify a non-standard filename for which Dockerfile to reference inside the project.
+* `file`: *Optional.* Specify a non-standard filename for the dockerfile
+
+* `rancher_file`: *Optional.* Specify a non-standard filename for the rancherfile
 
 #### Examples
 
