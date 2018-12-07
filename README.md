@@ -63,6 +63,10 @@ Deploys a specified Rancher project, optionally pulling new containers, as well 
 
 * `environment`: *Optional.* A set of `<key>: <value>` YAML-formatted environment variable pairs that will be set in the rancher-compose shell. See [this documentation](http://docs.rancher.com/rancher/rancher-compose/environment-interpolation/) for information on using these environment variables in your docker-compose/rancher-compose.yml files.
 
+* `file`: *Optional.* Specify a non-standard filename for the dockerfile
+
+* `rancher_file`: *Optional.* Specify a non-standard filename for the rancherfile
+
 #### Examples
 
 Deploys upgrades to the `blog` service. In this instance, upgrades are automatically forced and confirmed, though it would be simple to break upgrade confirmation out into a separate job, add a rollback job and manually trigger each when the upgrade has been independently verified.
@@ -83,6 +87,7 @@ jobs:
       service: blog
       pull: true
       upgrade: force
+      file: Dockerfile-alternate
   - put: compose
     params:
       path: blogRepo

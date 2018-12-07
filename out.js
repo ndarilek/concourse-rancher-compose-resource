@@ -40,6 +40,8 @@ process.stdin.on("data", (chunk) => {
   var cmdLine = `rancher-compose --project-name ${project} --url ${url} --access-key ${access_key} --secret-key ${secret_key} `
   if(params.file)
     cmdLine += `--file ${params.file} `
+  if(params.rancher_file)
+    cmdLine += `--rancher-file ${params.rancher_file} `
   cmdLine += "up -d "
   if(params.pull)
     cmdLine += "--pull "
